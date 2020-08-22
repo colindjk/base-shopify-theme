@@ -12,6 +12,7 @@
   },
   "dependencies": {},
   "devDependencies": {
+    "concurrently": "^5.3.0",
     "glob": "^7.1.6",
     "rollup": "^2.26.5",
     "rollup-plugin-copy-glob": "^0.3.1",

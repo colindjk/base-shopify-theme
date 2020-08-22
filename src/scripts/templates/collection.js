@@ -1,1 +1,4 @@
-console.log("Hello world (collection)");
+import { CartContents } from 'components/cart/Contents';
+
+console.log(`Hello world (collection) ${CartContents()}`);
+

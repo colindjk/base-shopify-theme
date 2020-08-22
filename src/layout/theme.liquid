@@ -11,7 +11,8 @@
   {{ 'application.scss.css' | asset_url | stylesheet_tag }}
   {{ 'application.js' | asset_url | script_tag }}
 
-  {{ 'templates.' | append: template | append: '.js' | asset_url | script_tag }}
+  <script type="module" src="{{ 'templates.' | append: template | append: '.js' | asset_url }}"></script>
+  <script nomodule type="text/javascript" src="{{ 'templates.' | append: template | append: '.iife.js' | asset_url }}"></script>
 </head>
 <body>
 
