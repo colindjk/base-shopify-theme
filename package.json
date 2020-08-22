@@ -1,0 +1,20 @@
+{
+  "name": "base-shopify-theme",
+  "version": "0.1.0",
+  "description": "A basic shopify theme with a goal of having build tools that integrate cleanly with preact, sass, and typescript",
+  "main": "src/scripts/main.js",
+  "repository": "git@github.com:colindjk/base-shopify-theme.git",
+  "author": "Colin Kirkpatrick <colindjk@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "rollup -c rollup.config.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "glob": "^7.1.6",
+    "rollup": "^2.26.5",
+    "rollup-plugin-copy-glob": "^0.3.1",
+    "rollup-plugin-includepaths": "^0.2.4"
+  }
+}
