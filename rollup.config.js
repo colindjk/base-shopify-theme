@@ -1,6 +1,7 @@
 /* plugin imports */
 import copy from 'rollup-plugin-copy-glob';
 import includePaths from 'rollup-plugin-includepaths';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 /* misc. imports */
 import glob from 'glob';
@@ -24,15 +25,15 @@ const includePathsConfig = {
 }
 
 /* config.input */
-const inputScripts = {};
+const inputScriptMap = {};
 
 for (const filename of glob.sync('src/scripts/templates/*.js')) {
   const bundle = filename.replace('src/scripts/', '').replace('.js', '').replace('/', '.');
-  inputScripts[bundle] = filename;
+  inputScriptMap[bundle] = filename;
 }
 
 const config = {
-  input: inputScripts,
+  input: inputScriptMap,
 
   output: [
     // ES module version, for modern browsers
@@ -46,6 +47,7 @@ const config = {
   plugins: [
     includePaths(includePathsConfig),
     copy(copyConfig),
+    nodeResolve({ browser: true }),
   ]
 }
 
@@ -53,15 +55,16 @@ const config = {
 const iifeConfigs = [];
 
 if (!IS_DEV_MODE) {
-  for (const key in inputScripts) {
+  for (const key in inputScriptMap) {
     iifeConfigs.push({
-      input: { [key + '.iife']: inputScripts[key] },
+      input: { [key + '.iife']: inputScriptMap[key] },
       output: {
         dir: 'dist/assets',
         format: 'iife'
       },
       plugins: [
         includePaths(includePathsConfig),
+        nodeResolve({ browser: true }),
       ]
     });
   }

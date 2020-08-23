@@ -8,12 +8,17 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "build": "rollup -c rollup.config.js"
+    "build": "rollup -c rollup.config.js",
+    "watch": "rollup -c rollup.config.js --watch"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@rollup/plugin-node-resolve": "^9.0.0",
+    "preact": "^10.4.7"
+  },
   "devDependencies": {
     "concurrently": "^5.3.0",
     "glob": "^7.1.6",
+    "preact-render-to-string": "^5.1.10",
     "rollup": "^2.26.5",
     "rollup-plugin-copy-glob": "^0.3.1",
     "rollup-plugin-includepaths": "^0.2.4"
