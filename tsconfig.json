@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "jsxFactory": "h",
+
+    "baseUrl": ".",
+    "paths": {
+      "*": [ "src/scripts/*" ]
+    }
+  }
+}

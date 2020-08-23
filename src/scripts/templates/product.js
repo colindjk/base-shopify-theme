@@ -1,4 +1,8 @@
 import { CartContents } from 'components/cart/Contents';
-import { h } from 'preact';
+import { This } from 'components/product/TileExample';
+import { render } from 'preact';
 
-console.log(`Hello world (product) ${CartContents()}`);
+console.log(`Hello world (product) ${CartContents}`);
+
+This();
+

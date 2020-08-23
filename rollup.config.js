@@ -2,6 +2,8 @@
 import copy from 'rollup-plugin-copy-glob';
 import includePaths from 'rollup-plugin-includepaths';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
+import babel from '@rollup/plugin-babel';
+import typescript from '@rollup/plugin-typescript';
 
 /* misc. imports */
 import glob from 'glob';
@@ -21,8 +23,28 @@ const includePathsConfig = {
   include: {},
   paths: ['src/scripts'],
   external: [],
-  extensions: ['.js', '.json', '.html']
+  extensions: ['.tsx', '.ts', '.jsx', '.js', '.json', '.html']
 }
+
+// Plugins used for all builds
+const getBasePlugins = () => [
+  includePaths(includePathsConfig),
+  nodeResolve({ browser: true }),
+  typescript(),
+  babel({
+    presets: [
+      [
+        '@babel/preset-react',
+        {
+          "pragma": "h",
+          "pragmaFrag": "Fragment",
+          "throwIfNamespace": false,
+          "runtime": "classic"
+        }
+      ]
+    ]
+  }),
+]
 
 /* config.input */
 const inputScriptMap = {};
@@ -40,14 +62,13 @@ const config = {
     {
       dir: 'dist/assets/',
       format: 'es',
-      sourcemap: true
+      sourcemap: 'inline' // FIXME: Why does setting this to "true" break things?
     },
   ],
 
   plugins: [
-    includePaths(includePathsConfig),
     copy(copyConfig),
-    nodeResolve({ browser: true }),
+    ...getBasePlugins(),
   ]
 }
 
@@ -62,10 +83,7 @@ if (!IS_DEV_MODE) {
         dir: 'dist/assets',
         format: 'iife'
       },
-      plugins: [
-        includePaths(includePathsConfig),
-        nodeResolve({ browser: true }),
-      ]
+      plugins: getBasePlugins(),
     });
   }
 }
